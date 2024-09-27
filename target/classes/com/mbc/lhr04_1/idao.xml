@@ -1,0 +1,26 @@
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mbc.lhr04_1.Service">
+	<insert id="insertImg">
+		insert into book0829 values(bnumber_seq.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},0)
+	</insert>
+	<select id="bookout" resultType="com.mbc.lhr04_1.BookDTO">
+		select bnumber,bname,bwriter,bprice,to_char(bdate,'yyyy/MM/dd')bdate,bcontent,bimage,breadcnt from book0829
+	</select>
+	<select id="selectchk" resultType="com.mbc.lhr04_1.BookDTO">
+		select bnumber,bname,bwriter,bprice,to_char(bdate,'yyyy/MM/dd')bdate,bcontent,bimage,breadcnt from book0829 where bnumber = #{param1}
+	</select>
+	<delete id="realdelete">
+		delete from book0829 where bnumber = #{param1}
+	</delete>
+	<update id="realupdate">
+		update book0829 set bname = #{param2}, bwriter = #{param3}, bprice = #{param4}, bdate = #{param5}, bcontent = #{param6}, bimage = #{param7} where bnumber = #{param1}
+	</update>
+	<update id="readcnt">
+		update book0829 set breadcnt = breadcnt + 1 where bnumber = #{param1}
+	</update>
+	<select id="search" resultType="com.mbc.lhr04_1.BookDTO">
+		select bnumber,bname,bwriter,bprice,to_char(bdate,'yyyy/MM/dd')bdate,bcontent,bimage,breadcnt from book0829 where ${param1} like '%'|| #{param2} ||'%'
+	</select>
+</mapper>
